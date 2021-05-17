@@ -12,8 +12,8 @@ Run migrations:
 - npx sequelize:db migrate
 
 Run seeds:
--npx sequelize db:seed:all
+- npx sequelize db:seed:all
 
 Run server:
--yarn dev
+- yarn dev
 
