@@ -1,5 +1,5 @@
 # API-default
-A generic API in Node JS, built with MVC pattern. User authentication with JWT and PostgreSQL as database.
+A generic API in Node JS, built with MVC pattern. User authentication with JWT and PostgreSQL as database. Sequelize as ORM.
 
 Install dependencies:
 - yarn
