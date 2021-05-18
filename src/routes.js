@@ -7,8 +7,8 @@ import authMiddleware from './app/middlewares/auth'
 
 const routes = new Router()
 
-routes.post('/signin', SessionController.store)
 routes.post('/signup', UserController.store)
+routes.post('/signin', SessionController.store)
 
 routes.get('/user', authMiddleware, UserController.show)
 routes.get('/users', authMiddleware, UserController.index)
