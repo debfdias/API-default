@@ -36,7 +36,7 @@ class UserController {
 
 
         if (!(await schema.isValid(req.body))) {
-            return res.status(401).json({ error: 'Algo deu errado' });
+            return res.status(401).json({ error: 'Verifique seus dados.' });
         }
         
         const userExists = await User.findOne({ where: { email: req.body.email } });
@@ -44,7 +44,7 @@ class UserController {
         if (userExists) {
             return res
                 .status(400)
-                .json({ error: 'Já existe um usuário com esse email' });
+                .json({ error: 'Já existe um usuário com esse email.' });
         }
         
         const user = await User.create(req.body);
@@ -118,6 +118,26 @@ class UserController {
             res.json(deletedOwner);
           });
 
+    }
+
+    async recover(req, res)
+    {
+        const schema = Yup.object().shape({
+            email: Yup.string()
+                .email()
+                .required(),
+        });
+
+        if (!(await schema.isValid(req.body))) {
+            return res.status(401).json({ error: 'Email inválido.' });
+        }
+       const userExists = await User.findOne({ where: { email: req.body.email } }); 
+
+       if (!userExists) {
+            return res.status(400).json({ error: 'Email não encontrado.' });
+        }
+
+        return res.status(200).json({ email: req.body.email });
     }
 }
 

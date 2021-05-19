@@ -9,6 +9,7 @@ const routes = new Router()
 
 routes.post('/signup', UserController.store)
 routes.post('/signin', SessionController.store)
+routes.post('/recover', UserController.recover)
 
 routes.get('/user', authMiddleware, UserController.show)
 routes.get('/users', authMiddleware, UserController.index)
