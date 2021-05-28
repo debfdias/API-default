@@ -34,17 +34,23 @@ class UserController {
                 .required(),
         });
 
-
         if (!(await schema.isValid(req.body))) {
-            return res.status(401).json({ error: 'Verifique seus dados.' });
+            if(req.body.password.length >= 6)
+            {
+                return res.status(401).json({ error: 'Verifique seus dados. Email inválido.', type: 'email' });
+            }
+            else
+            {
+                return res.status(401).json({ error: 'Verifique seus dados. Senha precisa ter no mínimo 6 caracteres.', type: 'password' });
+            }
         }
-        
+
         const userExists = await User.findOne({ where: { email: req.body.email } });
 
         if (userExists) {
             return res
                 .status(400)
-                .json({ error: 'Já existe um usuário com esse email.' });
+                .json({ error: 'Já existe um usuário com esse email.', type: 'email' });
         }
         
         const user = await User.create(req.body);
