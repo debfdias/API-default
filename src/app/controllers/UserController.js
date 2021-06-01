@@ -13,7 +13,6 @@ class UserController {
     }
 
     async show(req, res) {
-
         const {userId} = req
         const users = await User.findByPk(userId,{
             attributes: [
