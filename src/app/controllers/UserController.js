@@ -13,6 +13,7 @@ class UserController {
     }
 
     async show(req, res) {
+        console.log("entrei no showww")
         const {userId} = req
         const users = await User.findByPk(userId,{
             attributes: [
@@ -73,16 +74,13 @@ class UserController {
         });
 
         if (!(await schema.isValid(req.body))) {
-            return res.status(400).json({ error: 'Validação falhou' });
+            return res.status(400).json({ error: 'Validação falhou.' });
         }
 
         const { email, oldPassword } = req.body;
 
         const user = await User.findByPk(req.userId);
 
-        if (email && email === user.email) {
-            return res.status(400).json({ erro: 'O email é igual ao atual' });
-        }
         if (email && email === User.findOne({ email: { email } })) {
             return res
                 .status(400)
@@ -90,16 +88,12 @@ class UserController {
         }
 
         if (oldPassword && !(await user.checkPassword(oldPassword))) {
-            return res.status(401).json({ error: 'Senha errada' });
+            return res.status(401).json({ error: 'Senha errada.' });
         }
 
-        const { id, name } = await user.update(req.body);
+        await user.update(req.body);
 
-        return res.json({
-            id,
-            name,
-            email,
-        });
+        return res.json({user});
     }
 
     async delete(req, res) {

@@ -13,7 +13,7 @@ routes.post('/recover', UserController.recover)
 
 routes.get('/user', authMiddleware, UserController.show)
 routes.get('/users', authMiddleware, UserController.index)
-routes.put('/users', authMiddleware, UserController.update)
+routes.put('/user', authMiddleware, UserController.update)
 routes.delete('/users/:id?', authMiddleware, UserController.delete)
 
 export default routes
