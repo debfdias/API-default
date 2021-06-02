@@ -77,9 +77,15 @@ class UserController {
             return res.status(400).json({ error: 'Validação falhou.' });
         }
 
-        const { email, oldPassword } = req.body;
+        const { email, name, oldPassword } = req.body;
 
         const user = await User.findByPk(req.userId);
+
+        if(email === user.email && name === user.name)
+        {
+            console.log("Nada mudou.")
+            return res.status(400).json({ error: 'Nada a alterar.' });
+        }
 
         if (email && email === User.findOne({ email: { email } })) {
             return res
